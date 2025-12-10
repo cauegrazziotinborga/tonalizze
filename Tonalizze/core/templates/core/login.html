@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="auth-wrapper">
+    <div class="auth-box">
+        <h1>Entrar ou <a href="{% url 'cadastro' %}">crie uma conta</a></h1>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Email ou usuário:</label>
+                {{ form.username }}
+            </div>
+            <div class="form-group">
+                <label>Senha:</label>
+                {{ form.password }}
+            </div>
+            <button type="submit" class="btn-primary">Log in</button>
+        </form>
+
+        <small>Esqueceu sua senha? (protótipo — não implementado)</small>
+    </div>
+    <div class="auth-illustration">
+        <!-- quadrado cinza do wireframe -->
+        <div class="placeholder-box"></div>
+    </div>
+</div>
+{% endblock %}

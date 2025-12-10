@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="home-wrapper">
+
+    <div class="screen-area">
+        <div id="filter-overlay"
+             data-tonalidade1="{{ config.tonalidade_1 }}"
+             data-tonalidade2="{{ config.tonalidade_2 }}"
+             data-tonalidade3="{{ config.tonalidade_3 }}"
+             class="filter-overlay {% if filtro_ativo %}active{% endif %}">
+            <!-- aqui é a área simulando a tela com filtro -->
+            <div class="fake-screen">
+                <p>Área simulada da tela com o filtro Tonalizze.</p>
+                <p>Use a tela de configurações para ajustar as tonalidades.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-area">
+        <form method="post">
+            {% csrf_token %}
+            {% if filtro_ativo %}
+                <input type="hidden" name="ligar" value="0">
+                <button class="big-circle active" type="submit">
+                    DESLIGAR
+                </button>
+            {% else %}
+                <input type="hidden" name="ligar" value="1">
+                <button class="big-circle" type="submit">
+                    LIGUE AQUI
+                </button>
+            {% endif %}
+        </form>
+        <p class="hint">Atalho: pressione a tecla <strong>T</strong> para ligar/desligar o protótipo.</p>
+    </div>
+
+</div>
+{% endblock %}

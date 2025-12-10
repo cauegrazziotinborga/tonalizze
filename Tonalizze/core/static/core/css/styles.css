@@ -1,0 +1,209 @@
+/* =========================
+   PALETA TONALIZZE
+   ========================= */
+:root {
+    --red: #E12727;
+    --green: #8CBC24;
+    --blue: #0091B2;
+    --black: #000000;
+    --dark-gray: #222;
+    --light-gray: #f2f2f2;
+    --white: #ffffff;
+}
+
+/* =========================
+   GLOBAL
+   ========================= */
+body {
+    margin: 0;
+    font-family: "Inter", system-ui, Arial, sans-serif;
+    background: var(--light-gray);
+    color: var(--dark-gray);
+}
+
+.page-container {
+    max-width: 1100px;
+    margin: 40px auto;       /* <-- margens restauradas */
+    padding: 20px;           /* <-- respiração interna */
+}
+
+/* HEADERS */
+h1, h2, h3, h4 {
+    color: var(--dark-gray);
+    margin-bottom: 15px;
+}
+
+/* Remove colagem dos itens na borda */
+* {
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   TOPBAR
+   ========================= */
+.topbar {
+    background: var(--black);
+    color: var(--white);
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.logo-img {
+    height: 48px;
+}
+
+.topbar-right a {
+    margin-left: 20px;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.topbar-right a:hover {
+    color: var(--green);
+}
+
+/* =========================
+   AUTH BOX (Login & Cadastro)
+   ========================= */
+.auth-wrapper {
+    display: flex;
+    gap: 40px;
+    max-width: 900px;
+    margin: 40px auto;
+    background: var(--white);
+    padding: 40px;
+    border-radius: 10px;
+    border: 2px solid var(--blue);
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
+}
+
+.auth-box h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+/* Inputs */
+input {
+    border: 2px solid var(--blue);
+    border-radius: 6px;
+    padding: 10px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--green);
+}
+
+/* Botões */
+.btn-primary {
+    background: var(--blue);
+    border: none;
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background: var(--green);
+}
+
+.btn-secondary {
+    background: var(--red);
+    border: none;
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-secondary:hover {
+    background: #b51e1e;
+}
+
+/* =========================
+   HOME – "LIGUE AQUI"
+   ========================= */
+.big-circle {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    border: 10px solid var(--blue);
+    background: var(--white);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--dark-gray);
+    transition: 0.2s;
+}
+
+.big-circle:hover {
+    transform: scale(1.05);
+    border-color: var(--green);
+}
+
+.big-circle.active {
+    background: var(--red);
+    color: var(--white);
+    border-color: var(--green);
+}
+
+.screen-area {
+    border: 3px solid var(--blue);
+    border-radius: 12px;
+    padding: 20px;
+    background: var(--white);
+}
+
+/* =========================
+   FILTER OVERLAY SIMULATION
+   ========================= */
+.filter-overlay.active .fake-screen {
+    filter: hue-rotate(-20deg) saturate(1.4);
+}
+
+.fake-screen {
+    padding: 40px;
+    border-radius: 12px;
+    background: #fafafa;
+    text-align: center;
+}
+
+/* =========================
+   SLIDER CONFIG PAGE
+   ========================= */
+.slider-group label {
+    font-weight: bold;
+    color: var(--blue);
+}
+
+input[type=range] {
+    accent-color: var(--green);
+    width: 100%;
+}
+
+.slider-value {
+    margin-left: 10px;
+    color: var(--red);
+    font-weight: 600;
+}
+
+/* =========================
+   INFO PAGE
+   ========================= */
+.info-wrapper {
+    background: var(--white);
+    padding: 30px;
+    border: 2px solid var(--green);
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}

@@ -1,0 +1,34 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="config-wrapper">
+    <h2>Configurações das tonalidades</h2>
+
+    <form method="post" class="slider-form">
+        {% csrf_token %}
+
+        <div class="slider-group">
+            <label>Tonalidade 01</label>
+            {{ form.tonalidade_1 }}
+            <span class="slider-value" id="val1"></span>
+        </div>
+
+        <div class="slider-group">
+            <label>Tonalidade 02</label>
+            {{ form.tonalidade_2 }}
+            <span class="slider-value" id="val2"></span>
+        </div>
+
+        <div class="slider-group">
+            <label>Tonalidade 03</label>
+            {{ form.tonalidade_3 }}
+            <span class="slider-value" id="val3"></span>
+        </div>
+
+        <div class="config-buttons">
+            <a href="{% url 'home' %}" class="btn-secondary">Cancelar</a>
+            <button class="btn-primary" type="submit">Salvar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
