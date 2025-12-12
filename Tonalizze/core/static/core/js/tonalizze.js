@@ -1,38 +1,80 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Mostra valores dos sliders na tela
+document.addEventListener("DOMContentLoaded", () => {
+    // ===============================
+    // BOTÃO DE LIGAR / DESLIGAR
+    // ===============================
+    const toggleBtn = document.getElementById("toggle-filter-btn");
+    const body = document.body;
+
+    function applyToggle() {
+        body.classList.toggle("no-filter");
+        localStorage.setItem("filterOff", body.classList.contains("no-filter"));
+    }
+
+    if (localStorage.getItem("filterOff") === "true") {
+        body.classList.add("no-filter");
+    }
+
+    toggleBtn.addEventListener("click", applyToggle);
+
+
+    // ===============================
+    // PRESETS DE DALTONISMO
+    // ===============================
+    const presets = {
+        deuteranopia: { tone1: -20, tone2: 0.8, tone3: 1.1 },
+        protanopia: { tone1: 25, tone2: 0.7, tone3: 1.2 },
+        tritanopia: { tone1: 120, tone2: 0.9, tone3: 1.0 },
+        normal: { tone1: 0, tone2: 1, tone3: 1 }
+    };
+
+    const presetSelect = document.getElementById("preset-select");
+
+    presetSelect.addEventListener("change", () => {
+        const p = presets[presetSelect.value];
+        if (!p) return;
+
+        document.documentElement.style.setProperty("--tone1", p.tone1 + "deg");
+        document.documentElement.style.setProperty("--tone2", p.tone2);
+        document.documentElement.style.setProperty("--tone3", p.tone3);
+
+        localStorage.setItem("tone1", p.tone1);
+        localStorage.setItem("tone2", p.tone2);
+        localStorage.setItem("tone3", p.tone3);
+    });
+
+
+    // ===============================
+    // APLICAR VALORES DO LOCALSTORAGE AO CARREGAR
+    // ===============================
+    if (localStorage.getItem("tone1")) {
+        document.documentElement.style.setProperty("--tone1", localStorage.getItem("tone1") + "deg");
+        document.documentElement.style.setProperty("--tone2", localStorage.getItem("tone2"));
+        document.documentElement.style.setProperty("--tone3", localStorage.getItem("tone3"));
+    }
+
+
+    // ===============================
+    // PREVIEW AO MEXER NOS SLIDERS
+    // ===============================
     const s1 = document.querySelector('input[name="tonalidade_1"]');
     const s2 = document.querySelector('input[name="tonalidade_2"]');
     const s3 = document.querySelector('input[name="tonalidade_3"]');
 
-    const v1 = document.getElementById('val1');
-    const v2 = document.getElementById('val2');
-    const v3 = document.getElementById('val3');
+    const preview = document.createElement("div");
+    preview.id = "preview-box";
+    const form = document.querySelector("form.slider-form");
+    
+    if (form) form.appendChild(preview);
 
-    function bindSlider(slider, label) {
-        if (!slider || !label) return;
-        const update = () => {
-            label.textContent = slider.value;
-        };
-        slider.addEventListener('input', update);
-        update();
+    function updatePreview() {
+        if (!s1 || !s2 || !s3) return;
+
+        document.documentElement.style.setProperty("--tone1", s1.value + "deg");
+        document.documentElement.style.setProperty("--tone2", s2.value);
+        document.documentElement.style.setProperty("--tone3", s3.value);
     }
 
-    bindSlider(s1, v1);
-    bindSlider(s2, v2);
-    bindSlider(s3, v3);
-
-    // Atalho T para ligar/desligar (apenas visual, no protótipo)
-    const bigCircle = document.querySelector('.big-circle');
-    const overlay = document.getElementById('filter-overlay');
-
-    if (bigCircle && overlay) {
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 't' || e.key === 'T') {
-                e.preventDefault();
-                overlay.classList.toggle('active');
-                bigCircle.classList.toggle('active');
-                bigCircle.textContent = bigCircle.classList.contains('active') ? 'DESLIGAR' : 'LIGUE AQUI';
-            }
-        });
-    }
+    [s1, s2, s3].forEach(slider => {
+        if (slider) slider.addEventListener("input", updatePreview);
+    });
 });

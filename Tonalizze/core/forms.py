@@ -25,7 +25,7 @@ class TonalidadeForm(forms.ModelForm):
         model = TonalidadeConfig
         fields = ['tonalidade_1', 'tonalidade_2', 'tonalidade_3']
         widgets = {
-            'tonalidade_1': forms.NumberInput(attrs={'type': 'range', 'min': 0, 'max': 100}),
-            'tonalidade_2': forms.NumberInput(attrs={'type': 'range', 'min': 0, 'max': 100}),
-            'tonalidade_3': forms.NumberInput(attrs={'type': 'range', 'min': 0, 'max': 100}),
+            'tonalidade_1': forms.NumberInput(attrs={'type': 'range', 'min': -180, 'max': 180, 'step': 1}),
+            'tonalidade_2': forms.NumberInput(attrs={'type': 'range', 'min': 0.5, 'max': 2, 'step': 0.05}),
+            'tonalidade_3': forms.NumberInput(attrs={'type': 'range', 'min': 0.5, 'max': 2, 'step': 0.05}),
         }

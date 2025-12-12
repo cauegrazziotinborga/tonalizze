@@ -1,4 +1,4 @@
-/* =========================
+/*=========================
    PALETA TONALIZZE
    ========================= */
 :root {
@@ -11,15 +11,43 @@
     --white: #ffffff;
 }
 
+
+/* Valores que serão alterados pelo Django */
+:root {
+    --tone1: 0deg;     /* hue rotation */
+    --tone2: 1;        /* saturação */
+    --tone3: 1;        /* brightness */
+}
+
 /* =========================
    GLOBAL
    ========================= */
+/* FILTRO GLOBAL DO TONALIZZE */
 body {
-    margin: 0;
-    font-family: "Inter", system-ui, Arial, sans-serif;
-    background: var(--light-gray);
-    color: var(--dark-gray);
+    filter: hue-rotate(var(--tone1))
+            saturate(var(--tone2))
+            brightness(var(--tone3));
+    transition: filter 0.25s ease;
 }
+
+/* Modo desligado */
+body.no-filter {
+    filter: none !important;
+}
+
+/* Preview local dentro do painel de configurações */
+#preview-box {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(90deg, red, green, blue);
+    border-radius: 10px;
+    margin-top: 20px;
+    filter: hue-rotate(var(--tone1))
+            saturate(var(--tone2))
+            brightness(var(--tone3));
+}
+
+
 
 .page-container {
     max-width: 1100px;
@@ -27,16 +55,20 @@ body {
     padding: 20px;           /* <-- respiração interna */
 }
 
+
 /* HEADERS */
 h1, h2, h3, h4 {
     color: var(--dark-gray);
     margin-bottom: 15px;
 }
 
+
 /* Remove colagem dos itens na borda */
 * {
     box-sizing: border-box;
 }
+
+
 
 
 /* =========================
@@ -52,9 +84,11 @@ h1, h2, h3, h4 {
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
+
 .logo-img {
     height: 48px;
 }
+
 
 .topbar-right a {
     margin-left: 20px;
@@ -62,9 +96,11 @@ h1, h2, h3, h4 {
     font-size: 0.95rem;
 }
 
+
 .topbar-right a:hover {
     color: var(--green);
 }
+
 
 /* =========================
    AUTH BOX (Login & Cadastro)
@@ -81,10 +117,12 @@ h1, h2, h3, h4 {
     box-shadow: 0px 4px 12px rgba(0,0,0,0.15);
 }
 
+
 .auth-box h1 {
     font-size: 1.8rem;
     margin-bottom: 20px;
 }
+
 
 /* Inputs */
 input {
@@ -95,10 +133,12 @@ input {
     font-size: 1rem;
 }
 
+
 input:focus {
     outline: none;
     border-color: var(--green);
 }
+
 
 /* Botões */
 .btn-primary {
@@ -112,9 +152,11 @@ input:focus {
     font-weight: 600;
 }
 
+
 .btn-primary:hover {
     background: var(--green);
 }
+
 
 .btn-secondary {
     background: var(--red);
@@ -127,9 +169,11 @@ input:focus {
     font-weight: 600;
 }
 
+
 .btn-secondary:hover {
     background: #b51e1e;
 }
+
 
 /* =========================
    HOME – "LIGUE AQUI"
@@ -146,16 +190,19 @@ input:focus {
     transition: 0.2s;
 }
 
+
 .big-circle:hover {
     transform: scale(1.05);
     border-color: var(--green);
 }
+
 
 .big-circle.active {
     background: var(--red);
     color: var(--white);
     border-color: var(--green);
 }
+
 
 .screen-area {
     border: 3px solid var(--blue);
@@ -164,6 +211,7 @@ input:focus {
     background: var(--white);
 }
 
+
 /* =========================
    FILTER OVERLAY SIMULATION
    ========================= */
@@ -171,12 +219,14 @@ input:focus {
     filter: hue-rotate(-20deg) saturate(1.4);
 }
 
+
 .fake-screen {
     padding: 40px;
     border-radius: 12px;
     background: #fafafa;
     text-align: center;
 }
+
 
 /* =========================
    SLIDER CONFIG PAGE
@@ -186,16 +236,19 @@ input:focus {
     color: var(--blue);
 }
 
+
 input[type=range] {
     accent-color: var(--green);
     width: 100%;
 }
+
 
 .slider-value {
     margin-left: 10px;
     color: var(--red);
     font-weight: 600;
 }
+
 
 /* =========================
    INFO PAGE
@@ -206,4 +259,21 @@ input[type=range] {
     border: 2px solid var(--green);
     border-radius: 12px;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+#filter-toggle-box {
+    background: white;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+#toggle-filter-btn, #preset-select {
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: 2px solid var(--blue);
+    cursor: pointer;
+    font-size: 0.9rem;
 }

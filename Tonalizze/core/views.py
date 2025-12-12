@@ -14,7 +14,6 @@ def cadastro_view(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.save()
-            # cria config padrão
             TonalidadeConfig.objects.create(user=user)
             messages.success(request, 'Conta criada com sucesso! Faça login.')
             return redirect('login')
@@ -33,11 +32,9 @@ def login_view(request):
             username_or_email = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
-            # tentar por username
             user = authenticate(request, username=username_or_email, password=password)
 
             if user is None:
-                # tentar por email
                 from django.contrib.auth.models import User
                 try:
                     user_obj = User.objects.get(email=username_or_email)
@@ -63,28 +60,29 @@ def logout_view(request):
 
 @login_required
 def home_view(request):
-    """
-    Tela inicial com o botão LIGUE AQUI.
-    O estado "ligado/desligado" fica na sessão.
-    """
+
     if request.method == 'POST':
         liga = request.POST.get('ligar')
         request.session['filtro_ativo'] = (liga == '1')
 
     filtro_ativo = request.session.get('filtro_ativo', False)
 
-    # pegar config do usuário (ou padrão)
     config, _ = TonalidadeConfig.objects.get_or_create(user=request.user)
 
     context = {
         'filtro_ativo': filtro_ativo,
         'config': config,
+        'tone1': config.tonalidade_1,
+        'tone2': config.tonalidade_2,
+        'tone3': config.tonalidade_3,
     }
+
     return render(request, 'core/home.html', context)
 
 
 @login_required
 def config_tonalidades_view(request):
+
     config, _ = TonalidadeConfig.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
@@ -96,13 +94,23 @@ def config_tonalidades_view(request):
     else:
         form = TonalidadeForm(instance=config)
 
-    return render(request, 'core/config_tonalidades.html', {'form': form})
+    return render(request, 'core/config_tonalidades.html', {
+        'form': form,
+        'config': config,
+        'tone1': config.tonalidade_1,
+        'tone2': config.tonalidade_2,
+        'tone3': config.tonalidade_3,
+    })
 
 
 @login_required
 def user_info_view(request):
-    """
-    Tela de informações do usuário / explicação do Tonalizze.
-    Você pode colar trechos da sua introdução aqui.
-    """
-    return render(request, 'core/user_info.html')
+
+    config, _ = TonalidadeConfig.objects.get_or_create(user=request.user)
+
+    return render(request, 'core/user_info.html', {
+        'config': config,
+        'tone1': config.tonalidade_1,
+        'tone2': config.tonalidade_2,
+        'tone3': config.tonalidade_3,
+    })

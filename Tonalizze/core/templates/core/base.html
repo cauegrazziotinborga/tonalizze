@@ -6,12 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% load static %}
     <link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+
+    <style>
+        :root {
+            --tone1: {{ tone1|default:0 }}deg;
+            --tone2: {{ tone2|default:1 }};
+            --tone3: {{ tone3|default:1 }};
+        }
+    </style>
+
 </head>
 <body>
+    <div id="filter-toggle-box">
+        <button id="toggle-filter-btn">Ativar / Desativar Filtro</button>
+
+        <select id="preset-select">
+            <option value="">Escolher perfil</option>
+            <option value="deuteranopia">Deuteranopia</option>
+            <option value="protanopia">Protanopia</option>
+            <option value="tritanopia">Tritanopia</option>
+            <option value="normal">Resetar</option>
+        </select>
+    </div>
+
+
     <header class="topbar">
-        <div class="topbar-left">
-            <img src="{% static 'core/img/logo_tonalizze.png' %}" class="logo-img">
+        <div class="topbar-left" onclick="window.location.href='/'" style="cursor:pointer;">
+             <img src="{% static 'core/img/logo_tonalizze.png' %}" class="logo-img">
         </div>
+
 
         <div class="topbar-right">
             {% if user.is_authenticated %}
